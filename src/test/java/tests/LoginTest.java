@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.services.LoginAsStandardUserService;
 
-public class LoginTest extends BaseTestForLogin {
+public class LoginTest extends BaseTest {
 
     @Test
     public void loginAsStandardUser() {

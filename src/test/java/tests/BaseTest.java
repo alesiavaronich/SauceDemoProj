@@ -10,7 +10,7 @@ import utils.PropertyManager;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTestForLogin {
+public class BaseTest {
     WebDriver driver;
 
     @BeforeTest

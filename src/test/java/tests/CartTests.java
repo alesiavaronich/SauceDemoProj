@@ -2,12 +2,20 @@ package tests;
 
 import constants.Urls;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.CartPage;
 import pages.ProductsPage;
 import pages.services.AddProductToCartService;
+import pages.services.LoginAsStandardUserService;
 
-public class CartTests extends BaseTestForProducts {
+public class CartTests extends BaseTest {
+    @BeforeMethod
+    public void login() {
+        driver.get(Urls.SAUCEDEMO_LOGIN_URL);
+        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
+        loginAsStandardUserService.loginAsStandardUser();
+    }
 
     @Test(priority = 1)
     public void validateCartUrlAfterOpening() {

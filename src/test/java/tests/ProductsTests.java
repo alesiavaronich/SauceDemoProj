@@ -1,10 +1,19 @@
 package tests;
 
+import constants.Urls;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.ProductsPage;
+import pages.services.LoginAsStandardUserService;
 
-public class ProductsTests extends BaseTestForProducts {
+public class ProductsTests extends BaseTest {
+    @BeforeMethod
+    public void login() {
+        driver.get(Urls.SAUCEDEMO_LOGIN_URL);
+        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
+        loginAsStandardUserService.loginAsStandardUser();
+    }
 
     //Checking whether the shopping cart is empty
     //Please, help me with the logic of this test's assertion.
