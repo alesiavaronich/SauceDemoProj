@@ -26,7 +26,7 @@ public class CartTests extends BaseTest {
         String actualUrl = driver.getCurrentUrl();
         String expectedUrl = Urls.SAUCEDEMO_CART_URL;
 
-        Assert.assertTrue(actualUrl.equals(expectedUrl), "Urls are not equal.");
+        Assert.assertEquals(actualUrl, expectedUrl, "Urls are not equal.");
     }
 
     @Test(priority = 2)

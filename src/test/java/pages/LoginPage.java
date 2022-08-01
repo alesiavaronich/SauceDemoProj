@@ -14,6 +14,7 @@ public class LoginPage {
     private By username = By.cssSelector("[data-test='username']");
     private By password = By.id("password");
     private By loginButton = By.cssSelector("[data-test='login-button']");
+    private By linkedInLink = By.xpath("//li[@class='social_linkedin']/a");
 
     public void setUsername(String text) {
         driver.findElement(username).sendKeys(text);
@@ -25,6 +26,10 @@ public class LoginPage {
 
     public void clickLoginButton() {
         driver.findElement(loginButton).click();
+    }
+
+    public void clickLinkedInLink() {
+        driver.findElement(linkedInLink).click();
     }
 
 
