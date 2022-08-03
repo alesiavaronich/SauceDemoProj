@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import pages.ProductsPage;
 import pages.services.LoginAsStandardUserService;
 
-public class ProductsTests extends BaseTest {
+public class ProductsTests extends BaseWithFactoryTest {
     @BeforeMethod
     public void login() {
         driver.get(Urls.SAUCEDEMO_LOGIN_URL);

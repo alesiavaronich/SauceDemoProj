@@ -16,9 +16,9 @@ public class BaseTest {
     @BeforeTest
     public void setupDriver() {
         String os = System.getProperty("os.name");
-        String path = "PATH_TO_DRIVER_WIN";
+        String path = "PATH_TO_CHROME_WIN";
         if (!os.contains("Windows")) {
-            path = "PATH_TO_DRIVER_MAC";
+            path = "PATH_TO_CHROME_MAC";
         }
         PropertyManager propertyManager = new PropertyManager();
         propertyManager.loadData();
