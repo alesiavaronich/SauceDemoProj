@@ -11,8 +11,13 @@ public class DriverFactory {
                 break;
             case FIREFOX:
                 driverManager = new FirefoxDriverManager();
+                break;
             case EDGE:
                 driverManager = new EdgeDriverManager();
+                break;
+            case REMOTE:
+                driverManager = new RemoteDriverManager();
+                break;
             default:
                 throw new IllegalStateException("Unexpected driver type" + type);
         }
