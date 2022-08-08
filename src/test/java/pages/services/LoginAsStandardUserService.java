@@ -14,8 +14,8 @@ public class LoginAsStandardUserService {
 
     public void loginAsStandardUser() {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.setUsername(Credentials.SAUCEDEMO_LOGIN_STANDARD_USER);
-        loginPage.setPassword(Credentials.SAUCEDEMO_PASSWORD);
+        loginPage.enterUsername(Credentials.SAUCEDEMO_LOGIN_STANDARD_USER);
+        loginPage.enterPassword(Credentials.SAUCEDEMO_PASSWORD);
         loginPage.clickLoginButton();
     }
 }

@@ -9,7 +9,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 
-public class BaseWithFactoryTest {
+public class BaseWithDriverFactoryTest {
     WebDriver driver;
     public DriverManager driverManager;
 

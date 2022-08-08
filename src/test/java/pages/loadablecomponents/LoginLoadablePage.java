@@ -1,9 +1,9 @@
-package pages;
+package pages.loadablecomponents;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends BasePage {
+public class LoginLoadablePage extends BaseLoadableComponent {
 
     private By pageTitle = By.tagName("title"); //Swag Labs
     private By username = By.cssSelector("[data-test='username']");
@@ -11,8 +11,13 @@ public class LoginPage extends BasePage {
     private By loginButton = By.cssSelector("[data-test='login-button']");
     private By linkedInLink = By.xpath("//li[@class='social_linkedin']/a");
 
-    public LoginPage(WebDriver driver) {
+    public LoginLoadablePage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public boolean isComponentDisplayed() {
+        return isLoginButtonDisplayed();
     }
 
     public void enterUsername(String text) {
@@ -29,6 +34,10 @@ public class LoginPage extends BasePage {
 
     public void clickLinkedInLink() {
         driver.findElement(linkedInLink).click();
+    }
+
+    public boolean isLoginButtonDisplayed() {
+        return driver.findElement(loginButton).isDisplayed();
     }
 
 

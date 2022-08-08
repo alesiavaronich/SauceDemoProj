@@ -1,4 +1,4 @@
-package pages;
+package pages.loadablecomponents;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class ProductsPage extends BasePage {
+public class ProductsLoadablePage extends BaseLoadableComponent {
 
     private By addToCartButtonForOnesie = By.xpath("//button[@data-test='add-to-cart-sauce-labs-onesie']");
     private By removeButtonForOnesie = By.xpath("//button[@data-test='remove-sauce-labs-onesie']");
@@ -16,8 +16,17 @@ public class ProductsPage extends BasePage {
     private By shoppingCartContainsItemLink = By.xpath("//a[@class='shopping_cart_link']/span");
     private By priceOfOnesie = By.xpath("//div[@class='inventory_item_label']//following-sibling::div[@class='pricebar']/div[text()='7.99']");
 
-    public ProductsPage(WebDriver driver) {
+    public ProductsLoadablePage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public boolean isComponentDisplayed() {
+        return isShoppingCartIconDisplayed();
+    }
+
+    public boolean isShoppingCartIconDisplayed() {
+        return driver.findElement(emptyShoppingCartLink).isDisplayed();
     }
 
     public void addToCartOnesie() {

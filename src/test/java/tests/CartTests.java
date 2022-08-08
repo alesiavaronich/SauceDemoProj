@@ -9,7 +9,7 @@ import pages.ProductsPage;
 import pages.services.AddProductToCartService;
 import pages.services.LoginAsStandardUserService;
 
-public class CartTests extends BaseWithFactoryTest {
+public class CartTests extends BaseWithDriverFactoryTest {
     @BeforeMethod
     public void login() {
         driver.get(Urls.SAUCEDEMO_LOGIN_URL);

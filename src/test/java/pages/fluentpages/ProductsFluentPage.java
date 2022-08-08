@@ -1,4 +1,4 @@
-package pages;
+package pages.fluentpages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,8 +6,9 @@ import org.openqa.selenium.WebDriver;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
-public class ProductsPage extends BasePage {
+public class ProductsFluentPage extends BaseFluentPage {
 
+    private By productsSpanTitle = By.xpath("//div[@class='header_secondary_container']/span[text()='Products']");
     private By addToCartButtonForOnesie = By.xpath("//button[@data-test='add-to-cart-sauce-labs-onesie']");
     private By removeButtonForOnesie = By.xpath("//button[@data-test='remove-sauce-labs-onesie']");
     private By addToCartButtonForFleeceJacket = By.xpath("//button[@data-test='add-to-cart-sauce-labs-fleece-jacket']");
@@ -16,20 +17,28 @@ public class ProductsPage extends BasePage {
     private By shoppingCartContainsItemLink = By.xpath("//a[@class='shopping_cart_link']/span");
     private By priceOfOnesie = By.xpath("//div[@class='inventory_item_label']//following-sibling::div[@class='pricebar']/div[text()='7.99']");
 
-    public ProductsPage(WebDriver driver) {
+
+    public ProductsFluentPage(WebDriver driver) {
         super(driver);
     }
 
-    public void addToCartOnesie() {
+    public boolean isProductsSpanTitleDisplayed() {
+        return driver.findElement(productsSpanTitle).isDisplayed();
+    }
+
+    public ProductsFluentPage addToCartOnesie() {
         driver.findElement(addToCartButtonForOnesie).click();
+        return this;
     }
 
-    public void addToCartFleeceJacket() {
+    public ProductsFluentPage addToCartFleeceJacket() {
         driver.findElement(addToCartButtonForFleeceJacket).click();
+        return this;
     }
 
-    public void removeFleeceJacketFromCart() {
+    public ProductsFluentPage removeFleeceJacketFromCart() {
         driver.findElement(removeButtonForFleeceJacket).click();
+        return this;
     }
 
     public int getItemCountFromShoppingCart() {
@@ -51,12 +60,14 @@ public class ProductsPage extends BasePage {
         return result;
     }
 
-    public void goToCart() {
+    public CartFluentPage goToCart() {
         driver.findElement(shoppingCartContainsItemLink).click();
+        return new CartFluentPage(driver);
     }
 
-    public void goToEmptyCart() {
+    public CartFluentPage goToEmptyCart() {
         driver.findElement(emptyShoppingCartLink).click();
+        return new CartFluentPage(driver);
     }
 
 

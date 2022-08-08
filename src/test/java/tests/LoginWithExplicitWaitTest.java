@@ -10,7 +10,7 @@ import pages.LinkedInPage;
 import pages.LoginPage;
 import pages.services.LoginAsStandardUserService;
 
-public class LoginWithFactoryTest extends BaseTest {
+public class LoginWithExplicitWaitTest extends BaseTest {
 
     @Test(priority = 1)
     public void loginAsStandardUser() {
