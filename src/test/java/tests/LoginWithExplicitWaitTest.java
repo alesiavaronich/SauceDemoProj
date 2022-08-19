@@ -9,10 +9,11 @@ import org.testng.annotations.Test;
 import pages.LinkedInPage;
 import pages.LoginPage;
 import pages.services.LoginAsStandardUserService;
+import utils.RetryAnalyzer;
 
-public class LoginWithExplicitWaitTest extends BaseTest {
+public class LoginWithExplicitWaitTest extends BaseNoArchitectureTest {
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = RetryAnalyzer.class)
     public void loginAsStandardUser() {
         LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
         loginAsStandardUserService.loginAsStandardUser();
@@ -21,7 +22,7 @@ public class LoginWithExplicitWaitTest extends BaseTest {
         Assert.assertEquals(actualUrlAfterLogin, expectedUrlAfterLogin, "Urls are not equal.");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, retryAnalyzer = RetryAnalyzer.class)
     public void loginAsStandardUserWithExplicitWait() {
         LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
         LoginPage loginPage = new LoginPage(driver);

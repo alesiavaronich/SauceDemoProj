@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Parameters Suite">
+    <parameter name="browserType" value="chrome"></parameter>
+    <test name="Login">
+        <classes>
+            <class name="tests.LoginWithFluentTest"> </class>
+        </classes>
+    </test>
+</suite>

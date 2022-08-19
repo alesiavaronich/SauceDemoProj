@@ -15,6 +15,7 @@ public class ProductsPage extends BasePage {
     private By emptyShoppingCartLink = By.xpath("//a[@class='shopping_cart_link']");
     private By shoppingCartContainsItemLink = By.xpath("//a[@class='shopping_cart_link']/span");
     private By priceOfOnesie = By.xpath("//div[@class='inventory_item_label']//following-sibling::div[@class='pricebar']/div[text()='7.99']");
+    private By inventoryItemImg = By.xpath("//div[@class='inventory_item_img']/a/img");
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -58,7 +59,6 @@ public class ProductsPage extends BasePage {
     public void goToEmptyCart() {
         driver.findElement(emptyShoppingCartLink).click();
     }
-
 
 
 

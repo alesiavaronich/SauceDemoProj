@@ -10,6 +10,7 @@ public class LoginPage extends BasePage {
     private By password = By.id("password");
     private By loginButton = By.cssSelector("[data-test='login-button']");
     private By linkedInLink = By.xpath("//li[@class='social_linkedin']/a");
+    private By errorMessageContainer = By.xpath("//form//div[@class='error-message-container error']/h3");
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -29,6 +30,15 @@ public class LoginPage extends BasePage {
 
     public void clickLinkedInLink() {
         driver.findElement(linkedInLink).click();
+    }
+
+    public boolean isErrorMessageVisible() {
+        return driver.findElement(errorMessageContainer).isDisplayed();
+    }
+
+    public String readErrorMessage() {
+        String errorMessage = driver.findElement(errorMessageContainer).getText();
+        return errorMessage;
     }
 
 

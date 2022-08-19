@@ -1,6 +1,9 @@
 package tests;
 
 import constants.Urls;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,50 +11,56 @@ import pages.CartPage;
 import pages.ProductsPage;
 import pages.services.AddProductToCartService;
 import pages.services.LoginAsStandardUserService;
+import utils.RetryAnalyzer;
 
-public class CartTests extends BaseWithDriverFactoryTest {
+
+public class CartTests extends BaseWithThreadLocalManagerTest {
     @BeforeMethod
     public void login() {
-        driver.get(Urls.SAUCEDEMO_LOGIN_URL);
-        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
+        driverManager.getDriver().get(Urls.SAUCEDEMO_LOGIN_URL);
+        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driverManager.getDriver());
         loginAsStandardUserService.loginAsStandardUser();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 1, retryAnalyzer = RetryAnalyzer.class)
     public void validateCartUrlAfterOpening() {
-        AddProductToCartService addProductToCartService = new AddProductToCartService(driver);
+        AddProductToCartService addProductToCartService = new AddProductToCartService(driverManager.getDriver());
         addProductToCartService.addSingleProductToCart();
-        CartPage cartPage = new CartPage(driver);
+        CartPage cartPage = new CartPage(driverManager.getDriver());
         cartPage.openCart();
-        String actualUrl = driver.getCurrentUrl();
+        String actualUrl = driverManager.getDriver().getCurrentUrl();
         String expectedUrl = Urls.SAUCEDEMO_CART_URL;
 
         Assert.assertEquals(actualUrl, expectedUrl, "Urls are not equal.");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Test compares price of onesie from products page to its price after adding item to cart")
+    @Severity(SeverityLevel.BLOCKER)
     public void validateOnesiePriceInCart() {
-        //Save onesie's price into a variable
-        ProductsPage productsPage = new ProductsPage(driver);
+        //Saves onesie's price into a variable
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
         double priceOfOnesie = productsPage.getOnesiePrice();
 
-        //Add onesie to cart and go to cart
-        AddProductToCartService addProductToCartService = new AddProductToCartService(driver);
+        //Adds onesie to cart and go to cart
+        AddProductToCartService addProductToCartService = new AddProductToCartService(driverManager.getDriver());
         addProductToCartService.addSingleProductToCart();
-        CartPage cartPage = new CartPage(driver);
+        CartPage cartPage = new CartPage(driverManager.getDriver());
         cartPage.openCart();
 
-        //Save onesie's price into another variable
+        //Saves onesie's price into another variable
         double priceOfOnesieInCart = cartPage.getOnesiePriceInCart();
 
-        //Compare prices from the Products page and from the Cart page
+        //Compares prices from the Products page and from the Cart page
         Assert.assertTrue(priceOfOnesie == priceOfOnesieInCart,
                 "Prices don't match.");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 3, retryAnalyzer = RetryAnalyzer.class)
+    @Description("User attempts to remove item - onesie - from cart")
+    @Severity(SeverityLevel.BLOCKER)
     public void removeOnesieFromCart() {
-        CartPage cartPage = new CartPage(driver);
+        CartPage cartPage = new CartPage(driverManager.getDriver());
         cartPage.openCart();
         cartPage.removeOnesieFromCart();
         cartPage.continueShopping();

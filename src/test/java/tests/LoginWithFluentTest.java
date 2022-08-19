@@ -4,10 +4,11 @@ import constants.Credentials;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.fluentpages.LoginFluentPage;
+import utils.RetryAnalyzer;
 
 public class LoginWithFluentTest extends BaseWithDriverFactoryTest {
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void loginAsStandardUser() {
         LoginFluentPage loginFluentPage = new LoginFluentPage(driver);
         boolean isProductsDisplayed =
@@ -21,3 +22,4 @@ public class LoginWithFluentTest extends BaseWithDriverFactoryTest {
 
 
 }
+
