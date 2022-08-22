@@ -39,5 +39,10 @@ public class CartPage extends BasePage {
         driver.findElement(removeOnesieFromCart).click();
     }
 
+    public void addSingleProductToCart() {
+        ProductsPage productsPage = new ProductsPage(driver);
+        productsPage.addToCartOnesie();
+    }
+
 
 }

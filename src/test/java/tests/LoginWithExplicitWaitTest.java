@@ -34,8 +34,7 @@ public class LoginWithExplicitWaitTest extends BaseNoArchitectureTest {
 
         driver.getWindowHandles().forEach(tab -> driver.switchTo().window(tab));
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//icon[@data-test-id='nav-logo']"))); // test passes
-        //wait.until(ExpectedConditions.visibilityOf(linkedInPage.returnLinkedInLogo())); // test fails, doesn't find element HELP!
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//icon[@data-test-id='nav-logo']")));
         setImplicitlyWait();
 
         Assert.assertTrue(linkedInPage.returnLinkedInLogo().isDisplayed());

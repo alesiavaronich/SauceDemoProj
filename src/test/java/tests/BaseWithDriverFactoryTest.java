@@ -10,8 +10,10 @@ import utils.TestListenersWithAllureService;
 
 @Listeners(TestListenersWithAllureService.class)
 public class BaseWithDriverFactoryTest {
+
     WebDriver driver;
     public DriverManager driverManager;
+
 
     @BeforeTest
     @Parameters({"browser"})
@@ -22,6 +24,10 @@ public class BaseWithDriverFactoryTest {
             type = DriverType.CHROME;
         } else if (browser.equals("firefox")) {
             type = DriverType.FIREFOX;
+        } else if (browser.equals("edge")) {
+            type = DriverType.EDGE;
+        } else if (browser.equals("remote")) {  //Is this correct for remote driver?
+            type = DriverType.REMOTE;
         }
         driverManager = driverFactory.getManager(type);
         driverManager.createDriver();

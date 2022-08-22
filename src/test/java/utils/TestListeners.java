@@ -13,13 +13,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class TestListeners implements ITestListener {
-    @Override
-    public void onTestStart(ITestResult iTestResult) {
-    }
 
     @Override
-    public void onTestSuccess(ITestResult iTestResult) {
-    }
+    public void onTestStart(ITestResult iTestResult) {}
+
+    @Override
+    public void onTestSuccess(ITestResult iTestResult) {}
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
@@ -32,23 +31,18 @@ public class TestListeners implements ITestListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public void onTestSkipped(ITestResult iTestResult) {
-    }
+    public void onTestSkipped(ITestResult iTestResult) {}
 
     @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-    }
+    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {}
 
     @Override
-    public void onStart(ITestContext iTestContext) {
-    }
+    public void onStart(ITestContext iTestContext) {}
 
     @Override
-    public void onFinish(ITestContext iTestContext) {
-    }
+    public void onFinish(ITestContext iTestContext) {}
 
 }
