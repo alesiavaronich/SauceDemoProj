@@ -1,4 +1,4 @@
-package tests;
+package utils.explicitwaittest;
 
 import constants.Urls;
 import org.openqa.selenium.WebDriver;

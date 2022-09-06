@@ -41,7 +41,7 @@ public class ProductsPage extends BasePage {
             log.debug(String.format("Number of items in cart: $s", count));
             return count;
         } catch (NoSuchElementException e) {
-            log.debug(String.format("<span> element was not found, therefore cart is empty"));
+            log.debug("<span> element was not found, therefore cart is empty");
             return 0;
         }
     }
@@ -49,10 +49,10 @@ public class ProductsPage extends BasePage {
     public boolean isShoppingCartEmpty() {
         try {
             driver.findElement(emptyShoppingCartLink).getText();
-            log.debug(String.format("<span> element was found, therefore item was placed into cart"));
+            log.debug("<span> element was found, therefore item was placed into cart");
             return true;
         } catch (NoSuchElementException e) {
-            log.debug(String.format("<span> element was not found, therefore cart is empty"));
+            log.debug("<span> element was not found, therefore cart is empty");
             return false;
         }
     }

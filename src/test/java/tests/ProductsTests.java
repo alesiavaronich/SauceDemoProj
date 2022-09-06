@@ -1,6 +1,5 @@
 package tests;
 
-import constants.Urls;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -13,16 +12,14 @@ import pages.services.LoginAsStandardUserService;
 import utils.RetryAnalyzer;
 
 @Log4j
-public class ProductsTests extends BaseWithThreadLocalManagerTest {
+public class ProductsTests extends BaseWithDriverFactoryTest{
 
     @BeforeMethod
     public void login() {
-        log.info(String.format("Opening Url %s after launching the browser", Urls.SAUCEDEMO_LOGIN_URL));
-        driverManager.getDriver().get(Urls.SAUCEDEMO_LOGIN_URL);
         log.info(String.format("Creating an instance of login service from %s and logging in as a standard user",
                 LoginAsStandardUserService.class.getName()));
-        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driverManager.getDriver());
-        loginAsStandardUserService.loginAsStandardUser();
+        LoginAsStandardUserService login = new LoginAsStandardUserService(driverManager.getDriver());
+        login.loginAsStandardUser();
     }
 
     @Test(priority=1, retryAnalyzer = RetryAnalyzer.class)
@@ -30,11 +27,11 @@ public class ProductsTests extends BaseWithThreadLocalManagerTest {
     public void isShoppingCartEmpty() {
         log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
         ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
-        log.debug(String.format("Saving results of cart check into a boolean variable isCartEmpty"));
+        log.debug("Saving results of cart check into a boolean variable isCartEmpty");
         boolean isCartEmpty = productsPage.isShoppingCartEmpty();
         int cartItemCount = productsPage.getItemCountFromShoppingCart();
         log.debug(String.format("Number of items placed to cart: %s", cartItemCount));
-        log.info(String.format("Creating an assertion with assertFalse"));
+        log.info("Creating an assertion with assertFalse");
         Assert.assertFalse((isCartEmpty), "ERROR! Cart is not empty.");
     }
 
@@ -44,9 +41,9 @@ public class ProductsTests extends BaseWithThreadLocalManagerTest {
     public void addSingleProductToCart() {
         log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
         ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
-        log.info(String.format("Adding onesie to cart"));
+        log.info("Adding onesie to cart");
         productsPage.addToCartOnesie();
-        log.info(String.format("Saving item count into a variable"));
+        log.info("Saving item count into a variable");
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
         log.info(String.format("Number of items placed to cart: %s", numOfItemsInCart));
         Assert.assertTrue((numOfItemsInCart == 1), "ERROR! Incorrect number of items in the cart.");
@@ -58,7 +55,7 @@ public class ProductsTests extends BaseWithThreadLocalManagerTest {
     public void addSecondProductToCart() {
         log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
         ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
-        log.info(String.format("Adding onesie and fleece jacket to cart"));
+        log.info("Adding onesie and fleece jacket to cart");
         productsPage.addToCartOnesie();
         productsPage.addToCartFleeceJacket();
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
@@ -72,10 +69,10 @@ public class ProductsTests extends BaseWithThreadLocalManagerTest {
     public void removeSecondProductFromCart() {
         log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
         ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
-        log.info(String.format("Adding onesie and fleece jacket to cart"));
+        log.info("Adding onesie and fleece jacket to cart");
         productsPage.addToCartOnesie();
         productsPage.addToCartFleeceJacket();
-        log.info(String.format("Removing fleece jacket from cart"));
+        log.info("Removing fleece jacket from cart");
         productsPage.removeFleeceJacketFromCart();
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
         log.debug(String.format("Number of items placed to cart: %s", numOfItemsInCart));
@@ -91,7 +88,7 @@ public class ProductsTests extends BaseWithThreadLocalManagerTest {
         log.debug(String.format("Retrieving onesie's price from %s", ProductsPage.class.getName()));
         double actualPriceOnesie = productsPage.getOnesiePrice();
         log.debug(String.format("Price of onesie is %s", actualPriceOnesie));
-        log.info(String.format("Saving onesie's expected price into a variable"));
+        log.info("Saving onesie's expected price into a variable");
         double expectedPriceOnesie = 7.99;
         Assert.assertEquals(actualPriceOnesie, expectedPriceOnesie, "Prices do not match.");
     }

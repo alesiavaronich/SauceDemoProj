@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isErrorMessageVisible() {
-        log.debug(String.format("Validating whether error message is visible after clicking on Login button"));
+        log.debug("Validating whether error message is visible after clicking on Login button");
         return driver.findElement(errorMessageContainer).isDisplayed();
     }
 
@@ -49,6 +49,8 @@ public class LoginPage extends BasePage {
         String errorMessage = driver.findElement(errorMessageContainer).getText();
         return errorMessage;
     }
+
+
 
 
 }
