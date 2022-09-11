@@ -13,7 +13,6 @@ public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver) {
         super(driver);
-
     }
 
     public void openCart() {
@@ -38,6 +37,8 @@ public class CartPage extends BasePage {
     public void removeOnesieFromCart() {
         driver.findElement(removeOnesieFromCart).click();
     }
+
+
 
 
 }

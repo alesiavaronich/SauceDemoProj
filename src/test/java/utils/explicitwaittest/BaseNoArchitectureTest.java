@@ -1,4 +1,4 @@
-package tests;
+package utils.explicitwaittest;
 
 import constants.Urls;
 import org.openqa.selenium.WebDriver;
@@ -10,7 +10,7 @@ import utils.PropertyManager;
 
 import java.util.concurrent.TimeUnit;
 
-public class BaseTest {
+public class BaseNoArchitectureTest {
     WebDriver driver;
 
     @BeforeTest

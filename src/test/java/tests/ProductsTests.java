@@ -1,70 +1,95 @@
 package tests;
 
-import constants.Urls;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import lombok.extern.log4j.Log4j;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.ProductsPage;
 import pages.services.LoginAsStandardUserService;
+import utils.RetryAnalyzer;
 
-public class ProductsTests extends BaseWithDriverFactoryTest {
+@Log4j
+public class ProductsTests extends BaseWithDriverFactoryTest{
+
     @BeforeMethod
     public void login() {
-        driver.get(Urls.SAUCEDEMO_LOGIN_URL);
-        LoginAsStandardUserService loginAsStandardUserService = new LoginAsStandardUserService(driver);
-        loginAsStandardUserService.loginAsStandardUser();
+        log.info(String.format("Creating an instance of login service from %s and logging in as a standard user",
+                LoginAsStandardUserService.class.getName()));
+        LoginAsStandardUserService login = new LoginAsStandardUserService(driverManager.getDriver());
+        login.loginAsStandardUser();
     }
 
-    //Checking whether the shopping cart is empty
-    //Please, help me with the logic of this test's assertion.
-    @Test(priority = 1)
+    @Test(priority=1, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Test is checking whether shopping cart is empty")
     public void isShoppingCartEmpty() {
-        ProductsPage productsPage = new ProductsPage(driver);
+        log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
+        log.debug("Saving results of cart check into a boolean variable isCartEmpty");
         boolean isCartEmpty = productsPage.isShoppingCartEmpty();
-        System.out.println("Number of items placed to cart: " + isCartEmpty);
+        int cartItemCount = productsPage.getItemCountFromShoppingCart();
+        log.debug(String.format("Number of items placed to cart: %s", cartItemCount));
+        log.info("Creating an assertion with assertFalse");
         Assert.assertFalse((isCartEmpty), "ERROR! Cart is not empty.");
     }
 
-    //Adding a single product to the cart - ONESIE
-    @Test(priority = 2)
+    @Test(priority=2, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Adding a single product to the cart - ONESIE")
+    @Severity(SeverityLevel.BLOCKER)
     public void addSingleProductToCart() {
-        ProductsPage productsPage = new ProductsPage(driver);
+        log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
+        log.info("Adding onesie to cart");
         productsPage.addToCartOnesie();
-
+        log.info("Saving item count into a variable");
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
-        System.out.println("Number of items placed to cart: " + numOfItemsInCart);
+        log.info(String.format("Number of items placed to cart: %s", numOfItemsInCart));
         Assert.assertTrue((numOfItemsInCart == 1), "ERROR! Incorrect number of items in the cart.");
     }
 
-    //Adding second product to the cart - FLEECE JACKET
-    @Test(priority = 3)
+    @Test(priority=3, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Adding two products to the cart - ONESIE & FLEECE JACKET")
+    @Severity(SeverityLevel.BLOCKER)
     public void addSecondProductToCart() {
-        ProductsPage productsPage = new ProductsPage(driver);
+        log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
+        log.info("Adding onesie and fleece jacket to cart");
+        productsPage.addToCartOnesie();
         productsPage.addToCartFleeceJacket();
-
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
-        System.out.println("Number of items placed to cart: " + numOfItemsInCart);
+        log.debug(String.format("Number of items placed to cart: %s", numOfItemsInCart));
         Assert.assertTrue((numOfItemsInCart == 2), "ERROR! Incorrect number of items in the cart.");
     }
 
-    //Removing second product from the cart - FLEECE JACKET
-    //IMPORTANT! Test 'removeSecondProductFromCart' depends on test 'addSecondProductToCart'
-    @Test(priority = 4)
+    @Test(priority=4, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Removing one of the products from the cart - FLEECE JACKET")
+    @Severity(SeverityLevel.BLOCKER)
     public void removeSecondProductFromCart() {
-        ProductsPage productsPage = new ProductsPage(driver);
+        log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
+        log.info("Adding onesie and fleece jacket to cart");
+        productsPage.addToCartOnesie();
+        productsPage.addToCartFleeceJacket();
+        log.info("Removing fleece jacket from cart");
         productsPage.removeFleeceJacketFromCart();
-
         int numOfItemsInCart = productsPage.getItemCountFromShoppingCart();
-        System.out.println("Number of items placed to cart: " + numOfItemsInCart);
+        log.debug(String.format("Number of items placed to cart: %s", numOfItemsInCart));
         Assert.assertTrue((numOfItemsInCart == 1), "ERROR! Incorrect number of items in the cart.");
     }
 
-    @Test(priority = 5)
+    @Test(priority=5, retryAnalyzer = RetryAnalyzer.class)
+    @Description("Validating product's price comparing Products and Cart pages")
+    @Severity(SeverityLevel.BLOCKER)
     public void isOnesiePriceCorrect() {
-        ProductsPage productsPage = new ProductsPage(driver);
+        log.info(String.format("Creating an instance of Products page %s", ProductsPage.class.getName()));
+        ProductsPage productsPage = new ProductsPage(driverManager.getDriver());
+        log.debug(String.format("Retrieving onesie's price from %s", ProductsPage.class.getName()));
         double actualPriceOnesie = productsPage.getOnesiePrice();
+        log.debug(String.format("Price of onesie is %s", actualPriceOnesie));
+        log.info("Saving onesie's expected price into a variable");
         double expectedPriceOnesie = 7.99;
-        System.out.println("Price of onesie is: " + actualPriceOnesie);
-        Assert.assertEquals(actualPriceOnesie, expectedPriceOnesie, "Price does not match.");
+        Assert.assertEquals(actualPriceOnesie, expectedPriceOnesie, "Prices do not match.");
     }
 }

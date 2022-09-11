@@ -3,8 +3,9 @@ package pages.services;
 import constants.Credentials;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
+import tests.BaseWithDriverFactoryTest;
 
-public class LoginAsStandardUserService {
+public class LoginAsStandardUserService extends BaseWithDriverFactoryTest {
 
     private WebDriver driver;
 
