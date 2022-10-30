@@ -26,7 +26,7 @@ public class BaseWithDriverFactoryTest {
             type = DriverType.FIREFOX;
         } else if (browser.equals("edge")) {
             type = DriverType.EDGE;
-        } else if (browser.equals("remote")) {  //Is this correct for remote driver?
+        } else if (browser.equals("remote")) {
             type = DriverType.REMOTE;
         }
         driverManager = driverFactory.getManager(type);

@@ -4,7 +4,7 @@
     <parameter name="browserType" value="chrome"></parameter>
     <test name="Login">
         <classes>
-            <class name="tests.LoginWithFluentTest"> </class>
+            <class name="tests.LoginWithBuilderLombokModelTest"> </class>
         </classes>
     </test>
 </suite>

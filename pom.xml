@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <suiteXmlFile>src/test/resources/testsuites/RegressionParallelTest.xml</suiteXmlFile>
+        <suiteXmlFile>src/test/resources/testsuites/ParametersSuite.xml</suiteXmlFile>
         <aspectj.version>1.9.8</aspectj.version>
         <selenium-java.version>3.141.59</selenium-java.version>
         <testng.version>7.4.0</testng.version>
